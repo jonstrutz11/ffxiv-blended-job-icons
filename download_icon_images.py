@@ -62,25 +62,25 @@ def get_additional_info_and_actions(cj_basic_info: dict) -> dict:
     if 'CraftAction' in cj_json['GameContentLinks']:  # crafting classes have 2 kinds of actions
         cj_craft_action_ids = cj_json['GameContentLinks']['CraftAction']['ClassJob']
     else:
-        cj_craft_action_ids = None
+        cj_craft_action_ids = []
 
     cj_abbrev = cj_json['Abbreviation']
 
     global THIS_FILE_DIR_PATH
-    cj_action_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons/action_icons/{cj_abbrev}'
+    cj_action_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons_hd/action_icons/{cj_abbrev}'
     pathlib.Path(cj_action_icon_image_path).mkdir(parents=True, exist_ok=True)
-    cj_trait_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons/trait_icons/{cj_abbrev}'
+    cj_trait_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons_hd/trait_icons/{cj_abbrev}'
     pathlib.Path(cj_trait_icon_image_path).mkdir(parents=True, exist_ok=True)
 
-    cj_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons/class_job_icons/{cj_abbrev}.png'
+    cj_icon_image_path = f'{THIS_FILE_DIR_PATH}/icons_hd/class_job_icons/{cj_abbrev}.png'
     r = requests.get(f'{BASE_URL}/{cj_basic_info["Icon"]}')
     with open(cj_icon_image_path, 'wb') as outfile:
         outfile.write(r.content)
 
-    cj_actions = download_icon_images_and_info(cj_action_ids, 'Action', cj_action_icon_image_path, cj_abbrev)
-    cj_craft_actions = download_icon_images_and_info(cj_craft_action_ids, 'CraftAction', cj_action_icon_image_path, cj_abbrev)
+    cj_actions = download_icon_images_and_info(cj_action_ids, 'Action', cj_action_icon_image_path)
+    cj_craft_actions = download_icon_images_and_info(cj_craft_action_ids, 'CraftAction', cj_action_icon_image_path)
     cj_actions += cj_craft_actions
-    cj_traits = download_icon_images_and_info(cj_trait_ids, 'Trait', cj_trait_icon_image_path, cj_abbrev)
+    cj_traits = download_icon_images_and_info(cj_trait_ids, 'Trait', cj_trait_icon_image_path)
 
     cj_full_info = cj_basic_info.copy()
     cj_full_info['Abbreviation'] = cj_abbrev
@@ -92,7 +92,7 @@ def get_additional_info_and_actions(cj_basic_info: dict) -> dict:
     return cj_full_info
 
 
-def download_icon_images_and_info(game_content_ids: List[int], icon_type: str, icon_dir: str, cj_abbrev: str) -> List[dict]:
+def download_icon_images_and_info(game_content_ids: List[int], icon_type: str, icon_dir: str) -> List[dict]:
     """Download and get info for all requested actions or traits. Saves all
     action or trait icons as PNG files in requested directory.
     
@@ -104,8 +104,6 @@ def download_icon_images_and_info(game_content_ids: List[int], icon_type: str, i
         'Action' or 'Trait'.
     icon_dir : str
         Path to directory to save icon images in.
-    cj_abbrev : str
-        Abbreviation of class or job.
 
     Returns
     -------
@@ -126,6 +124,7 @@ def download_icon_images_and_info(game_content_ids: List[int], icon_type: str, i
             continue
         else:
             gc_icon_api_path = gc_json['Icon']
+            gc_icon_api_path = gc_icon_api_path.replace('.png', '_hr1.png')  # get HD version!
             gc_icon_local_path = f'{icon_dir}/{gc_id}.png'
 
             # Get image for action
@@ -146,10 +145,10 @@ def download_icon_images_and_info(game_content_ids: List[int], icon_type: str, i
 
 if __name__ == '__main__':
     pathlib.Path(f'{THIS_FILE_DIR_PATH}/class_job_info').mkdir(parents=True, exist_ok=True)
-    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons').mkdir(parents=True, exist_ok=True)
-    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons/class_job_icons').mkdir(parents=True, exist_ok=True)
-    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons/action_icons').mkdir(parents=True, exist_ok=True)
-    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons/trait_icons').mkdir(parents=True, exist_ok=True)
+    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons_hd').mkdir(parents=True, exist_ok=True)
+    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons_hd/class_job_icons').mkdir(parents=True, exist_ok=True)
+    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons_hd/action_icons').mkdir(parents=True, exist_ok=True)
+    pathlib.Path(f'{THIS_FILE_DIR_PATH}/icons_hd/trait_icons').mkdir(parents=True, exist_ok=True)
 
     all_class_job_info = get_all_class_job_info()
     for cj_basic_info in all_class_job_info:

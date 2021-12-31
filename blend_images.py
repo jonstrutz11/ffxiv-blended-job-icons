@@ -78,5 +78,5 @@ for cj_json_filename in os.listdir(THIS_FILE_DIR_PATH / 'class_job_info'):
 
     blended_image = blend_images(cj_img_paths)
 
-    cj_bi_out_path = THIS_FILE_DIR_PATH / 'icons_blended' / 'actions_only' / f'{cj_info["Abbreviation"]}.png'
+    cj_bi_out_path = THIS_FILE_DIR_PATH / 'icons_blended_hd' / 'actions_only' / f'{cj_info["Abbreviation"]}.png'
     blended_image.save(cj_bi_out_path)

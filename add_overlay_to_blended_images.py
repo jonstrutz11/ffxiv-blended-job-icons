@@ -16,13 +16,16 @@ for cj_json_filename in os.listdir(THIS_FILE_DIR_PATH / 'class_job_info'):
         cj_info = json.load(infile)
 
     cj_abbrev = cj_info['Abbreviation']
-    blended_image = Image.open(THIS_FILE_DIR_PATH / 'icons_blended' / 'actions_only' / f'{cj_info["Abbreviation"]}.png')
+    blended_image = Image.open(THIS_FILE_DIR_PATH / 'icons_blended_hd' / 'actions_only' / f'{cj_info["Abbreviation"]}.png')
 
     print('Overlaying image for', cj_abbrev)
 
     cj_icon = Image.open(THIS_FILE_DIR_PATH / 'icons' / 'class_job_icons' / f'{cj_info["Abbreviation"]}.png')
-    cj_icon = cj_icon.resize((40, 40))
-    blended_image.paste(cj_icon, (0, 0), cj_icon)
+    cj_icon = cj_icon.resize((80, 80))
+    if blended_image.size == (80, 80):
+        blended_image.paste(cj_icon, (0, 0), cj_icon)
+    else:
+        continue
 
-    cj_bi_out_path = THIS_FILE_DIR_PATH / 'icons_blended' / 'actions_only_w_overlay' / f'{cj_info["Abbreviation"]}.png'
+    cj_bi_out_path = THIS_FILE_DIR_PATH / 'icons_blended_hd' / 'actions_only_w_overlay' / f'{cj_info["Abbreviation"]}.png'
     blended_image.save(cj_bi_out_path)
