@@ -1,5 +1,8 @@
 # checkpoints for jupyter notebooks
 .ipynb_checkpoints
 
-# icon images take a lot of space so don't include them
-icon_images
+# icon images take a lot of space so don't include them (can be generated with download_icon_images.py)
+icons
+
+# json files containing local file paths to generated images (can be generated with download_icon_images.py)
+class_job_info
