@@ -1,7 +1,7 @@
 # ffxiv-blended-job-icons
 All action icons for each class/job are blended together to create new backgrounds for each job/class icon!
 
-![blended job icons infographic](blended_icons_infographic.png)
+![blended job icons infographic](blended_icons_high_res.png)
 
 I used python to connect to [xivapi](https://xivapi.com/) to download all class and job icons as well as all the action icons for each job or class. From there, I used the python [pillow](https://pillow.readthedocs.io/en/stable/) library to blend each job's respective actions together.
 
