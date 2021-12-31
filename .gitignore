@@ -1,0 +1,5 @@
+# checkpoints for jupyter notebooks
+.ipynb_checkpoints
+
+# icon images take a lot of space so don't include them
+icon_images
