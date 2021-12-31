@@ -11,4 +11,9 @@ I also overlayed each class or job's icon ontop of the blended background. These
 
 You can also just download all of these images by downloading the zip file, `icons_blended.zip`.
 
+### More Details
+- Blended icons do not include role actions, traits, or deprecated actions/traits
+- Blends are done by taking the average RGB values at each pixel across all actions
 
+### Future Work
+- Would be cool to blend action icons weighted by frequency of use (could get this data from FFLogs, perhaps)
