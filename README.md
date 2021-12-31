@@ -14,6 +14,7 @@ You can also just download all of these images by downloading the zip file, `ico
 ### More Details
 - Blended icons do not include role actions, traits, or deprecated actions/traits
 - Blends are done by taking the average RGB values at each pixel across all actions
+- If a job has a parent class (e.g. WHM/CNJ), both the job's and parent class's actions are all used for the final blended icon.
 
 ### Future Work
 - Would be cool to blend action icons weighted by frequency of use (could get this data from FFLogs, perhaps)
