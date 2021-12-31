@@ -5,7 +5,6 @@ import os
 import pathlib
 
 from PIL import Image
-from typing import List
 
 THIS_FILE_DIR_PATH = pathlib.Path(__file__).parent.resolve()
 
